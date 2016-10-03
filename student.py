@@ -51,7 +51,7 @@ class GoPiggy(pigo.Pigo):
     def nav(self):
         print("Piggy nav")
         ##### WRITE YOUR FINAL PROJECT HERE
-
+        self.encR(18)
 
 ####################################################
 ############### STATIC FUNCTIONS
