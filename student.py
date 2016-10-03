@@ -46,12 +46,12 @@ class GoPiggy(pigo.Pigo):
     def dance(self):
         print("Piggy dance")
         ##### WRITE YOUR FIRST PROJECT HERE
+        self.encR(18)
 
     # AUTONOMOUS DRIVING
     def nav(self):
         print("Piggy nav")
         ##### WRITE YOUR FINAL PROJECT HERE
-        self.encR(18)
 
 ####################################################
 ############### STATIC FUNCTIONS
