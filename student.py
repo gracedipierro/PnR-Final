@@ -46,21 +46,26 @@ class GoPiggy(pigo.Pigo):
     def dance(self):
         print("Piggy dance")
         ##### WRITE YOUR FIRST PROJECT HERE
-        for x in range (100, 200, 25):
-            print ('Speed is set to:'+ str(x))
-            servo(20)
-            set_speed(x)
-            self.encB(5)
-            self.encF(3)
-            self.encR(2)
-            self.encL(2)
-            servo(87)
-            self.encL(18)
-            self.encR(5)
-            self.encL(6)
-            self.encB(3)
-            servo(120)
-            self.encF(5)
+        print('Is it safe to dance?')
+        print(self.isClear())
+        if self.isClear():
+            for x in range (100, 200, 25):
+                print ('Speed is set to:'+ str(x))
+                servo(20)
+                set_speed(x)
+                self.encB(5)
+                self.encF(3)
+                self.encR(2)
+                self.encL(2)
+                servo(120)
+                self.encL(18)
+                self.encR(5)
+                self.encL(5)
+                self.encB(3)
+                servo(87)
+                self.encF(5)
+            else:
+                stop()
 
     # AUTONOMOUS DRIVING
     def nav(self):
