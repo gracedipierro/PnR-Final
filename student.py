@@ -68,7 +68,7 @@ class GoPiggy(pigo.Pigo):
                 self.encB(3)
                 self.encR(4)
                 self.encL(4)
-                servo(87)
+                servo(96)
                 self.encF(5)
             else:
                 stop()
