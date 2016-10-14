@@ -55,7 +55,6 @@ class GoPiggy(pigo.Pigo):
             servo(60)
             set_speed(x)
             self.encB(5)
-            self.encL(3)
             self.encF(4)
             self.encL(3)
             servo(20)
