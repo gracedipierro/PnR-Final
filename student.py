@@ -49,7 +49,7 @@ class GoPiggy(pigo.Pigo):
         print('Is it safe to dance?')
         for x in range (100, 200, 25):
             if not self.isClear():
-                print "Not clear!"
+                print ("Not clear!")
                 break
         print ('Speed is set to:'+ str(x))
         servo(60)
