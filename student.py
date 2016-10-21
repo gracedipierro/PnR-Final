@@ -75,7 +75,13 @@ class GoPiggy(pigo.Pigo):
     # AUTONOMOUS DRIVING
     def nav(self):
         print("Piggy nav")
-        ##### WRITE YOUR FINAL PROJECT HERE
+        # WRITE YOUR FINAL PROJECT HERE
+        #TODO: if loop fails, check for other paths
+        # loop: first check that it is clear
+        while self.isClear():
+            # go forward 10 if it is clear
+            self.encF(10)
+
 
 ####################################################
 ############### STATIC FUNCTIONS
