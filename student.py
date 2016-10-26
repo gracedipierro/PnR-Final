@@ -76,13 +76,12 @@ class GoPiggy(pigo.Pigo):
     def nav(self):
         print("Piggy nav")
         # WRITE YOUR FINAL PROJECT HERE
-        #TODO: if loop fails, check for other paths
-        # loop: first check that it is clear
-        #trying out the nested loop too
+        # if loop fails, it will check for other paths
+        # loop: first check that it is clear, also with nested loop
         while True:
             while self.isClear():
             # go forward 10 if it is clear
-                self.encF(10)
+                self.encF(4)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will go left 5
