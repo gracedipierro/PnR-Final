@@ -13,7 +13,7 @@ class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
     MIDPOINT = 87
-    STOP_DIST = 20
+    STOP_DIST = 30
 
     # CONSTRUCTOR
     def __init__(self):
