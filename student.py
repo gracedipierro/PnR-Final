@@ -82,6 +82,7 @@ class GoPiggy(pigo.Pigo):
             while self.isClear():
             # go forward 10 if it is clear
                 self.encF(4)
+            self.stop()
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will go left 5
@@ -90,8 +91,6 @@ class GoPiggy(pigo.Pigo):
             # if the path is clear to the right and not left it will go right
             elif answer == "right":
                 self.encR(5)
-
-
 
 
 ####################################################
