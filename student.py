@@ -12,14 +12,14 @@ improve the parent class and it won't overwrite your work.
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
-    MIDPOINT = 87
+    MIDPOINT = 89
     STOP_DIST = 30
 
     # CONSTRUCTOR
     def __init__(self):
         print("Piggy has be instantiated!")
         # this method makes sure Piggy is looking forward
-        #self.calibrate()
+        self.calibrate()
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
@@ -81,7 +81,7 @@ class GoPiggy(pigo.Pigo):
         while True:
             while self.isClear():
             # go forward 10 if it is clear
-                self.encF(4)
+                self.encF(5)
             self.stop()
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
@@ -91,7 +91,8 @@ class GoPiggy(pigo.Pigo):
             # if the path is clear to the right and not left it will go right
             elif answer == "right":
                 self.encR(5)
-
+        ### TODO: how to change how much it turns when it changes directions
+                #TODO: add the test drive code and fix speed
 
 ####################################################
 ############### STATIC FUNCTIONS
