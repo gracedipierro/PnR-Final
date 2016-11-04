@@ -103,6 +103,23 @@ class GoPiggy(pigo.Pigo):
         ### TODO:start figuring out how many degrees it turns left or right
             ## figure out how to get robot to turn without a set number?
 
+## every time robot turns it will print how much it will turn to get back on track
+    def encR(self, enc):
+        self.turn_track -= enc
+        super(pigo.Pigo, self).encR(enc)
+
+    def encL(self, enc):
+        self.turn_track += enc
+        if(self.turn_track > 0):
+            # turn track is pos, (facing left) needs to turn right to face exit
+            print("The exit is to my right by" + str(self.turn_track) + "units")
+            # exit is to right by however much turn track is
+        else:
+            print("The exit is to my life by" + str(abs(self.turn_track)) + "units")
+        super(pigo.Pigo, self).encL(enc)
+    # if this works, need to learn how robot uses rotate method to measure what each encode unit means in degrees
+    # can figure out how much we want to turn, but first see if we can track accurately
+
 ####################################################
 ############### STATIC FUNCTIONS
 
