@@ -120,8 +120,9 @@ class GoPiggy(pigo.Pigo):
         else:
             print("The exit is to my life by" + str(abs(self.turn_track)) + "units")
         super(pigo.Pigo, self).encL(enc)
-    # if this works, need to learn how robot uses rotate method to measure what each encode unit means in degrees
-    # can figure out how much we want to turn, but first see if we can track accurately
+    ### if this works, need to learn how robot uses rotate method to measure what each encode unit means in degrees
+    ### can figure out how much we want to turn, but first see if we can track accurately
+        ### TODO: test this out next class
 
 ####################################################
 ############### STATIC FUNCTIONS
