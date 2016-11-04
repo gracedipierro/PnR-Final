@@ -20,6 +20,8 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     RIGHT_SPEED = 200
     LEFT_SPEED = 200
+    turn_track = 0
+    ## everytime I use encR or L I want to adjust the number and print it as well (below)
 
     # CONSTRUCTOR
     def __init__(self):
@@ -106,6 +108,7 @@ class GoPiggy(pigo.Pigo):
 ## every time robot turns it will print how much it will turn to get back on track
     def encR(self, enc):
         self.turn_track -= enc
+        ## subtract same amount that you encoded
         super(pigo.Pigo, self).encR(enc)
 
     def encL(self, enc):
