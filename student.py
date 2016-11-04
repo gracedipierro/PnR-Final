@@ -8,7 +8,7 @@ This class INHERITS your teacher's Pigo class. That means Mr. A can continue to
 improve the parent class and it won't overwrite your work.
 '''
 ## TODO from the board in class: Calibrate, Cruise, Turn Track, Turn options, other
-## TODO add some more class variables
+## TODO add some more class variables up at the top
 ## TODO put speed for left and right motors in student.py at the top with other variables
     ## this helps so it doesn't veer off to the side
 ## TODO replace calibrate in student with set speed method from pigo
@@ -38,8 +38,9 @@ class GoPiggy(pigo.Pigo):
         menu = {"1": ("Navigate forward", self.nav),
                 "2": ("Rotate", self.rotate),
                 "3": ("Dance", self.dance),
-                "4": ("Calibrate servo", self.calibrate),
-                ## does this still calibrate servo?
+                "4": ("Calibrate", self.calibrate),
+                ## this will calibrate motor speed now instead of servo
+                #does servo first as midpoint and then the motors
                 "q": ("Quit", quit)
                 }
         # loop and print the menu...
