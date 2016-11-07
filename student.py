@@ -9,15 +9,13 @@ improve the parent class and it won't overwrite your work.
 '''
 ## TODO from the board in class: Calibrate, Cruise, Turn Track, Turn options, other
 ## TODO add some more class variables up at the top
-## TODO put speed for left and right motors in student.py at the top with other variables
-    ## this helps so it doesn't veer off to the side
-## TODO replace calibrate in student with set speed method from pigo
 
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
     MIDPOINT = 89
     STOP_DIST = 30
+    #Turn speed ?
     RIGHT_SPEED = 200
     LEFT_SPEED = 200
     turn_track = 0
@@ -32,7 +30,7 @@ class GoPiggy(pigo.Pigo):
         while True:
             self.stop()
             self.handler()
-
+## asking if I wnat ot calibrate head
     ##### HANDLE IT
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
@@ -105,12 +103,12 @@ class GoPiggy(pigo.Pigo):
         ### TODO:start figuring out how many degrees it turns left or right
             ## figure out how to get robot to turn without a set number?
 
-## every time robot turns it will print how much it will turn to get back on track
+    ## every time robot turns it will print how much it will turn to get back on track
     def encR(self, enc):
         self.turn_track -= enc
-        ## subtract same amount that you encoded
+        ## subtract same amount that is encoded
         super(pigo.Pigo, self).encR(enc)
-
+        ## error here, object super no attribute encR
     def encL(self, enc):
         self.turn_track += enc
         if(self.turn_track > 0):
@@ -122,7 +120,7 @@ class GoPiggy(pigo.Pigo):
         super(pigo.Pigo, self).encL(enc)
     ### if this works, need to learn how robot uses rotate method to measure what each encode unit means in degrees
     ### can figure out how much we want to turn, but first see if we can track accurately
-        ### TODO: test this out next class
+        ### TODO: test this out
 
 ####################################################
 ############### STATIC FUNCTIONS
