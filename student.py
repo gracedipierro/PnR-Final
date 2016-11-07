@@ -30,7 +30,7 @@ class GoPiggy(pigo.Pigo):
         while True:
             self.stop()
             self.handler()
-## asking if I wnat ot calibrate head
+## asking if I want to calibrate head
     ##### HANDLE IT
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values

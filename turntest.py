@@ -7,9 +7,9 @@ while True:
 
     set_left_speed(lspeed)
     set_right_speed(rspeed)
-    enc_tgt(1, 1, turn)
+    print(enc_tgt(1, 1, turn))
     right_rot()
 
-    time.sleep(2)
-
+    #time.sleep(5)
+    stop()
     ##left_rot(turn)
