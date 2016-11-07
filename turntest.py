@@ -10,6 +10,7 @@ while True:
     print(enc_tgt(1, 1, turn))
     right_rot()
 
+    imput("Press any key to stop")
     #time.sleep(5)
     stop()
     ##left_rot(turn)
