@@ -1,7 +1,7 @@
 from gopigo import *
 print("Hi grace")
 while True:
-    time = float(input("How much would you like to turn?"))
+    t = float(input("How much would you like to turn?"))
     rspeed = int(input("What would you like for your right speed?"))
     lspeed = int(input("What would you like for your left speed?"))
 
@@ -10,7 +10,7 @@ while True:
     #print(enc_tgt(1, 1, turn))
     right_rot()
 
-    time.sleep(time)
+    time.sleep(t)
 
     stop()
     ##left_rot(turn)
