@@ -116,9 +116,9 @@ class GoPiggy(pigo.Pigo):
             print("The exit is to my right by" + str(self.turn_track) + "units")
             # exit is to right by however much turn track is
         else:
-            print("The exit is to my life by" + str(abs(self.turn_track)) + "units")
+            print("The exit is to my left by" + str(abs(self.turn_track)) + "units")
         super(pigo.Pigo, self).encL(enc)
-    ### if this works, need to learn how robot uses rotate method to measure what each encode unit means in degrees
+    ### if this works, learn how robot uses rotate method to measure what each encode unit means in degrees
     ### can figure out how much we want to turn, but first see if we can track accurately
         ### TODO: test this out
 
