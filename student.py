@@ -20,7 +20,8 @@ class GoPiggy(pigo.Pigo):
     LEFT_SPEED = 200
     turn_track = 0
     ## everytime I use encR or L I want to adjust the number and print it as well (below)
-
+    TIME_PER_DEGREE = .011
+    TURN_MODIFIER = .41
     # CONSTRUCTOR
     def __init__(self):
         print("Piggy has been instantiated!")
