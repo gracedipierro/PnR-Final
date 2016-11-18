@@ -140,7 +140,7 @@ class GoPiggy(pigo.Pigo):
             # if the path is clear to the right and not left it will go right
             elif answer == "right":
                 self.turnR(45)
-                # how many degrees do we actually want to turn ?
+                ## how many degrees do we actually want to turn ?
 
 
 
