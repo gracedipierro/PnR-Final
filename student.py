@@ -107,6 +107,7 @@ class GoPiggy(pigo.Pigo):
         print("The exit is " + str(self.turn_track) + " degrees away.")
         self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER
         # use our experiments to calculate the time needed to turn
+
         left_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
