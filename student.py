@@ -13,6 +13,7 @@ improve the parent class and it won't overwrite your work.
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
+    # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
     STOP_DIST = 30
     #Turn speed ?
@@ -36,6 +37,7 @@ class GoPiggy(pigo.Pigo):
             self.stop()
             self.handler()
 ## asking if I want to calibrate head
+
     ##### HANDLE IT
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
@@ -55,6 +57,7 @@ class GoPiggy(pigo.Pigo):
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
 
+##################################################################################################################
     # A SIMPLE DANCE ALGORITHM
     def dance(self):
         print("Piggy dance")
@@ -83,6 +86,39 @@ class GoPiggy(pigo.Pigo):
             servo(96)
             self.encF(5)
             time.sleep(.1)
+#################################################################################################################S
+
+    ### MY NEW TURN METHODS BC encR and encL just don't cut it
+    # takes number of degs and turns right accordingly
+    def turnR(self, deg):
+        self.turn_track += deg
+        print("The exit is " +str(self.turn_track) + " degrees away.")
+        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER)
+        right_rot()
+        time.sleep(deg * self.TIME_PER_DEGREE)
+        self.stop()
+        #sets speed back to default at top of code
+        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
+
+
+    def turnL(self, deg):
+        # adjust the tracker so we know how many degrees away our exit is
+        self.turn_track -= deg
+        print("The exit is " + str(self.turn_track) + " degrees away.")
+        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER
+        # use our experiments to calculate the time needed to turn
+        left_rot()
+        time.sleep(deg * self.TIME_PER_DEGREE)
+        self.stop
+        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
+        #set speed back to normal bc we only adjust it for turns
+
+    def setSpeed(self, left, right):
+        print("Left speed: " + str(left))
+        print("Right speed: " + str(right))
+        set_left_speed(left)
+        set_right_speed(right)
+        time.sleep(.05)
 
 
     # AUTONOMOUS DRIVING
@@ -100,14 +136,16 @@ class GoPiggy(pigo.Pigo):
             answer = self.choosePath()
             # if the path is clear to the left, it will go left 5
             if answer == "left":
-                self.encL(5)
+                self.turnL(45)
             # if the path is clear to the right and not left it will go right
             elif answer == "right":
-                self.encR(5)
-        ### TODO: how to change how much it turns when it changes directions
-        ### TODO:start figuring out how many degrees it turns left or right
-            ## figure out how to get robot to turn without a set number?
+                self.turnR(45)
+                # how many degrees do we actually want to turn ?
 
+
+
+#################################################################################################################
+####THIS CODE IS NO LONGER USED FOR NAV BUT ONLY FOR DANCE I THINK
     ## every time robot turns it will print how much it will turn to get back on track
     def encR(self, enc):
         self.turn_track -= enc
@@ -127,7 +165,7 @@ class GoPiggy(pigo.Pigo):
     ### can figure out how much we want to turn, but first see if we can track accurately
         ### TODO: test this out
 
-####################################################
+##################################################################################################################
 ############### STATIC FUNCTIONS
 
 def error():
