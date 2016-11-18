@@ -109,7 +109,7 @@ class GoPiggy(pigo.Pigo):
         # use our experiments to calculate the time needed to turn
         left_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
-        self.stop
+        self.stop()
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
         #set speed back to normal bc we only adjust it for turns
 
