@@ -12,7 +12,6 @@ improve the parent class and it won't overwrite your work.
 
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
-    # You may want to add a variable to store your default speed
     # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
     STOP_DIST = 30
@@ -20,7 +19,6 @@ class GoPiggy(pigo.Pigo):
     RIGHT_SPEED = 200
     LEFT_SPEED = 200
     turn_track = 0
-    # every time I use encR or L I want to adjust the number and print it as well (below)
     # instance variables
     TIME_PER_DEGREE = .011
     # this tells how long it takes for robot to turn 1 degree
@@ -36,7 +34,7 @@ class GoPiggy(pigo.Pigo):
         while True:
             self.stop()
             self.handler()
-## asking if I want to calibrate head
+        # asking if I want to calibrate head
 
     ##### HANDLE IT
     def handler(self):
@@ -46,14 +44,14 @@ class GoPiggy(pigo.Pigo):
                 "2": ("Rotate", self.rotate),
                 "3": ("Dance", self.dance),
                 "4": ("Calibrate", self.calibrate),
-                ## this will calibrate motor speed now instead of servo
-                #does servo first as midpoint and then the motors
+                ## this will calibrate motor speed instead of servo
+                #calibrates servo first as midpoint and then the motors
                 "q": ("Quit", quit)
                 }
         # loop and print the menu...
         for key in sorted(menu.keys()):
             print(key + ":" + menu[key][0])
-        #
+
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
 
@@ -89,7 +87,7 @@ class GoPiggy(pigo.Pigo):
 #################################################################################################################S
 
     ### MY NEW TURN METHODS BC encR and encL just don't cut it
-    # takes number of degs and turns right accordingly
+    # takes number of degrees and turns right/left accordingly
     def turnR(self, deg):
         self.turn_track += deg
         print("The exit is " +str(self.turn_track) + " degrees away.")
@@ -100,14 +98,12 @@ class GoPiggy(pigo.Pigo):
         #sets speed back to default at top of code
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
-
     def turnL(self, deg):
         # adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
         print("The exit is " + str(self.turn_track) + " degrees away.")
         self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER
         # use our experiments to calculate the time needed to turn
-
         left_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
@@ -121,14 +117,17 @@ class GoPiggy(pigo.Pigo):
         set_right_speed(int(right))
         time.sleep(.05)
 
+##################################################################################################################
 
     # AUTONOMOUS DRIVING
+    # central logic loop of my navigation
     def nav(self):
         print("Piggy nav")
         # WRITE YOUR FINAL PROJECT HERE
         # if loop fails, it will check for other paths
-        # loop: first check that it is clear, also with nested loop
+        # main app loop
         while True:
+            #TODO: replace choosePath with a method that is smarter
             while self.isClear():
             # go forward 10 if it is clear
                 self.encF(5)
@@ -137,9 +136,11 @@ class GoPiggy(pigo.Pigo):
             answer = self.choosePath()
             # if the path is clear to the left, it will go left 5
             if answer == "left":
+                #TODO: Replace 45 with a variable representing a smarter option
                 self.turnL(45)
             # if the path is clear to the right and not left it will go right
             elif answer == "right":
+                # TODO: Replace 45 with a variable representing a smarter option
                 self.turnR(45)
                 ## how many degrees do we actually want to turn ?
 
