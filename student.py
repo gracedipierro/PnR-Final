@@ -165,7 +165,7 @@ class GoPiggy(pigo.Pigo):
         super(pigo.Pigo, self).encL(enc)
     ### if this works, learn how robot uses rotate method to measure what each encode unit means in degrees
     ### can figure out how much we want to turn, but first see if we can track accurately
-        ### TODO: test this out
+        ### TODO: test this out ?
 
 ##################################################################################################################
 ############### STATIC FUNCTIONS
