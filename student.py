@@ -17,7 +17,7 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     # Turn speed ? adjust speeds if needed
     RIGHT_SPEED = 200
-    # ex. left speed * .8
+    # ex. left speed * .8?
     LEFT_SPEED = 200
     turn_track = 0.0
     TIME_PER_DEGREE = .011
@@ -162,6 +162,42 @@ class GoPiggy(pigo.Pigo):
         else:
             print("The exit is to my left by" + str(abs(self.turn_track)) + "units")
         super(pigo.Pigo, self).encL(enc)
+
+    def calibrate(self):
+        print("Calibrating...")
+        servo(self.MIDPOINT)
+        response = input("Am I looking straight ahead? (y/n): ")
+        if response == 'n':
+            while True:
+                response = input("Turn right, left, or am I done? (r/l/d): ")
+                if response == "r":
+                    self.MIDPOINT += 1
+                    print("Midpoint: " + str(self.MIDPOINT))
+                    servo(self.MIDPOINT)
+                    time.sleep(.01)
+                elif response == "l":
+                    self.MIDPOINT -= 1
+                    print("Midpoint: " + str(self.MIDPOINT))
+                    servo(self.MIDPOINT)
+                    time.sleep(.01)
+                else:
+                    print("Midpoint now saved to: " + str(self.MIDPOINT))
+                    break
+        response = input("Do you want to check if I'm driving straight? (y/n)")
+        if response == 'y':
+
+            while True:
+                set_left_speed(self.LEFT_SPEED)
+                set_right_speed(self.RIGHT_SPEED)
+                print("Left: " + str(self.LEFT_SPEED) + "//  Right: " + str(self.RIGHT_SPEED))
+                self.encF(19)
+                response = input("Reduce left, reduce right or done? (l/r/d): ")
+                if response == 'l':
+                    self.LEFT_SPEED -= 10
+                elif response == 'r':
+                    self.RIGHT_SPEED -= 10
+                elif response == 'd':
+                    break
 
 ##################################################################################################################
 ############### STATIC FUNCTIONS
