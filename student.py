@@ -130,6 +130,8 @@ class GoPiggy(pigo.Pigo):
             # go forward 10 if it is clear
                 self.encF(5)
             self.stop()
+            if distance > 3:
+                encB(5)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will turn 45 degrees
@@ -161,6 +163,10 @@ class GoPiggy(pigo.Pigo):
         else:
             print("The exit is to my left by" + str(abs(self.turn_track)) + "units")
         super(pigo.Pigo, self).encL(enc)
+
+
+###################################################################################################################
+    # this code helps me to calibrate motor speed, told me if it was driving straight
 
     def calibrate(self):
         print("Calibrating...")
