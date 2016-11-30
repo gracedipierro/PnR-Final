@@ -130,8 +130,8 @@ class GoPiggy(pigo.Pigo):
             # go forward 10 if it is clear
                 self.cruise()
                 # robot will cruise for a while until it sees something
-            if us_dist(15) < 5:
-                # when it stops it will check to see if something is up in its face
+            if us_dist(15) < 7:
+                # when it stop it will check to see if something is up in its face
                 # then it will back up and check for a new path
                 self.encB(5)
             # trying to get robot to choose a new path if it cannot go forward
