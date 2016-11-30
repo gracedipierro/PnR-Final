@@ -126,11 +126,13 @@ class GoPiggy(pigo.Pigo):
         # main app loop
         while True:
             #TODO: replace choosePath with a method that is smarter
-            while self.isClear():
+            if self.isClear():
             # go forward 10 if it is clear
-                self.encF(5)
-            self.stop()
-            if us_dist(15) < 3:
+                self.cruise()
+                # robot will cruise for a while until it sees something
+            if us_dist(15) < 5:
+                # when it stops it will check to see if something is up in its face
+                # then it will back up and check for a new path
                 self.encB(5)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
@@ -144,6 +146,15 @@ class GoPiggy(pigo.Pigo):
                 self.turnR(45)
                 ## how many degrees do we actually want to turn ?
 
+    def cruise(self):
+        servo(self.MIDPOINT)
+        time.sleep(.1)
+        fwd()
+        while True:
+            if us_dist(15)< self.STOP_DIST:
+                break
+            time.sleep(.05)
+        self.stop()
 
 
 #################################################################################################################
