@@ -15,10 +15,11 @@ class GoPiggy(pigo.Pigo):
     # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
     STOP_DIST = 30
-    #Turn speed ?
+    # Turn speed ? adjust speeds if needed
     RIGHT_SPEED = 200
+    # ex. left speed * .8
     LEFT_SPEED = 200
-    turn_track = 0
+    turn_track = 0.0
     TIME_PER_DEGREE = .011
     # this tells how long it takes for robot to turn 1 degree
     TURN_MODIFIER = .41
@@ -58,7 +59,6 @@ class GoPiggy(pigo.Pigo):
     # A SIMPLE DANCE ALGORITHM
     def dance(self):
         print("Piggy dance")
-        ##### WRITE YOUR FIRST PROJECT HERE
         print('Is it safe to dance?')
         for x in range (100, 200, 25):
             if not self.isClear():
@@ -109,6 +109,7 @@ class GoPiggy(pigo.Pigo):
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
         # set speed back to normal bc we only adjust it for turns
 
+    # set speed is for the whole thing but it is called again to change the speed for the turn
     def setSpeed(self, left, right):
         print("Left speed: " + str(left))
         print("Right speed: " + str(right))
@@ -132,11 +133,11 @@ class GoPiggy(pigo.Pigo):
             self.stop()
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
-            # if the path is clear to the left, it will go left 5
+            # if the path is clear to the left, it will turn 45 degrees
             if answer == "left":
                 #TODO: Replace 45 with a variable representing a smarter option
                 self.turnL(45)
-            # if the path is clear to the right and not left it will go right
+            # if the path is clear to the right and not left, it will go right
             elif answer == "right":
                 # TODO: Replace 45 with a variable representing a smarter option
                 self.turnR(45)
@@ -161,16 +162,12 @@ class GoPiggy(pigo.Pigo):
         else:
             print("The exit is to my left by" + str(abs(self.turn_track)) + "units")
         super(pigo.Pigo, self).encL(enc)
-    ### if this works, learn how robot uses rotate method to measure what each encode unit means in degrees
-    ### can figure out how much we want to turn, but first see if we can track accurately
-        ### TODO: test this out ?
 
 ##################################################################################################################
 ############### STATIC FUNCTIONS
 
 def error():
     print('Error in input')
-
 
 def quit():
     raise SystemExit
