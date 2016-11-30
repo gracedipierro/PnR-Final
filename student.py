@@ -130,8 +130,8 @@ class GoPiggy(pigo.Pigo):
             # go forward 10 if it is clear
                 self.encF(5)
             self.stop()
-            if distance > 3:
-                encB(5)
+            if us_dist(15) < 3:
+                self.encB(5)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will turn 45 degrees
