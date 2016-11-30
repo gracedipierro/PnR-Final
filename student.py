@@ -16,9 +16,8 @@ class GoPiggy(pigo.Pigo):
     MIDPOINT = 89
     STOP_DIST = 30
     # Turn speed ? adjust speeds if needed
-    RIGHT_SPEED = 200
-    # ex. left speed * .8?
-    LEFT_SPEED = 200
+    RIGHT_SPEED = 150
+    LEFT_SPEED = 150
     turn_track = 0.0
     TIME_PER_DEGREE = .011
     # this tells how long it takes for robot to turn 1 degree
