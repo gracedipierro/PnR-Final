@@ -19,7 +19,6 @@ class GoPiggy(pigo.Pigo):
     RIGHT_SPEED = 200
     LEFT_SPEED = 200
     turn_track = 0
-    # instance variables
     TIME_PER_DEGREE = .011
     # this tells how long it takes for robot to turn 1 degree
     TURN_MODIFIER = .41
@@ -84,9 +83,9 @@ class GoPiggy(pigo.Pigo):
             servo(96)
             self.encF(5)
             time.sleep(.1)
-#################################################################################################################S
+##################################################################################################################
 
-    ### MY NEW TURN METHODS BC encR and encL just don't cut it
+    ### NEW TURN METHODS BC encR and encL just don't cut it
     # takes number of degrees and turns right/left accordingly
     def turnR(self, deg):
         self.turn_track += deg
@@ -95,20 +94,20 @@ class GoPiggy(pigo.Pigo):
         right_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
-        #sets speed back to default at top of code
+        # sets speed back to default at top of code
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
     def turnL(self, deg):
         # adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
         print("The exit is " + str(self.turn_track) + " degrees away.")
-        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER
+        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER, self.RIGHT_SPEED * self.TURN_MODIFIER)
         # use our experiments to calculate the time needed to turn
         left_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
-        #set speed back to normal bc we only adjust it for turns
+        # set speed back to normal bc we only adjust it for turns
 
     def setSpeed(self, left, right):
         print("Left speed: " + str(left))
@@ -123,7 +122,6 @@ class GoPiggy(pigo.Pigo):
     # central logic loop of my navigation
     def nav(self):
         print("Piggy nav")
-        # WRITE YOUR FINAL PROJECT HERE
         # if loop fails, it will check for other paths
         # main app loop
         while True:
