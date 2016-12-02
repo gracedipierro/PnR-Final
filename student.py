@@ -136,15 +136,18 @@ class GoPiggy(pigo.Pigo):
                 self.encB(5)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
+            # turn_target = self.kenny()
             # if the path is clear to the left, it will turn 45 degrees
             if answer == "left":
                 #TODO: Replace 45 with a variable representing a smarter option
                 self.turnL(45)
+                #  self.turnL(turn_target)
             # if the path is clear to the right and not left, it will go right
             elif answer == "right":
                 # TODO: Replace 45 with a variable representing a smarter option
                 self.turnR(45)
                 ## how many degrees do we actually want to turn ?
+                # self.turnR(turn_target)
 
     def cruise(self):
         servo(self.MIDPOINT)
@@ -155,6 +158,50 @@ class GoPiggy(pigo.Pigo):
                 break
             time.sleep(.05)
         self.stop()
+
+
+    # replacement turn method , find best option to turn
+    def kenny(self):
+        # use built-in wide scan
+        self.wideScan()
+        # will double check, if finds that first scan is different, take a 2nd or 3rd scan & average to be extra sure
+        # count will keep track of contigeous positive readings
+        count = 0
+        # list of all open paths we detect
+        option = [0]
+        SAFETY_BUFFER = 30
+        # what increment do you have your widescan set to?
+        INC = 2
+        #############################
+        ##### Build the options #####
+        #############################
+        # brackets makes it a list, first item is 0
+        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60):
+            if self.scan[x]:
+                # if there is an actual value in x, consider it. otherwise skip over it
+            if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
+        # add 30 if necessary, safety buffer
+                count += 1
+            else:
+                count  = 0
+            # reset the count, path won't work
+            if count == (20/INC)
+                # Success! Found enough positive readings in a row to count
+            print 'Found an option from ' + str(x - 20) + "to " + str(x)
+            count = 0
+            option.append(x-10)
+            #we are done finding spots, list options
+
+    #########################
+    ### Pick from options ###
+    #########################
+        for x in option:
+            # skip filler option
+            if not x.+__index__() == 0:
+                print("Choice  #" + str(x.__index__())+ "is at " + str(x) + " degrees.")
+
+
+
 
 
 #################################################################################################################
