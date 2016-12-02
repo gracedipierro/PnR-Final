@@ -160,7 +160,7 @@ class GoPiggy(pigo.Pigo):
         self.stop()
 
 
-    # replacement turn method , find best option to turn
+    # REPLACEMENT TURN METHOD , find best option to turn
     def kenny(self):
         # use built-in wide scan
         self.wideScan()
@@ -191,17 +191,19 @@ class GoPiggy(pigo.Pigo):
             count = 0
             option.append(x-10)
             #we are done finding spots, list options
-
-    #########################
-    ### Pick from options ###
-    #########################
+        #########################
+        ### Pick from options ###
+        #########################
+        bestoption = 90
+        winner = 0
         for x in option:
             # skip filler option
             if not x.+__index__() == 0:
-                print("Choice  #" + str(x.__index__())+ "is at " + str(x) + " degrees.")
-
-
-
+                print("Choice  # " + str(x.__index__())+ "is at " + str(x) + " degrees.")
+            if bestoption > abs(self.turn_track -(x - self.MIDPOINT)):
+                bestoption = abs(self.turn_track -(x - self.MIDPOINT))
+                winner = x
+            return winner
 
 
 #################################################################################################################
