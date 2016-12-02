@@ -200,10 +200,12 @@ class GoPiggy(pigo.Pigo):
             # skip filler option
             if not x.+__index__() == 0:
                 print("Choice  # " + str(x.__index__())+ "is at " + str(x) + " degrees.")
-            if bestoption > abs(self.turn_track -(x - self.MIDPOINT)):
-                bestoption = abs(self.turn_track -(x - self.MIDPOINT))
-                winner = x
-            return winner
+                print("My ideal choice would  be " + str(self.turn_track + self.MIDPOINT))
+                if bestoption > abs(self.turn_track -(x - self.MIDPOINT)):
+                    bestoption = abs(self.turn_track -(x - self.MIDPOINT))
+                    winner = x
+        return winner
+
 
 
 #################################################################################################################
