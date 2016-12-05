@@ -183,7 +183,7 @@ class GoPiggy(pigo.Pigo):
         for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60):
             if self.scan[x]:
                 # if there is an actual value in x, consider it. otherwise skip over it
-            if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
+                if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
         # add 30 if necessary, safety buffer
                 count += 1
             else:
