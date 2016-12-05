@@ -207,13 +207,13 @@ class GoPiggy(pigo.Pigo):
             if x != 0:
             # skip filler option
             # the change to the midpoint needed to aim at this path
-            turn = self.MIDPOINT - x
+                turn = self.MIDPOINT - x
             # state our logic so debugging is easier
-            print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
+                print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
             # if this option is closer to our ideal than our current best option...
-            if abs(ideal - bestoption) > abs(ideal - turn):
+                if abs(ideal - bestoption) > abs(ideal - turn):
                 # store this turn as the best option
-                bestoption = turn
+                    bestoption = turn
         if bestoption > 0:
             input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
         else:
