@@ -128,22 +128,17 @@ class GoPiggy(pigo.Pigo):
         # main app loop
         while True:
             if self.isClear():
-            # go forward 10 if it is clear
                 self.cruise()
                 # robot will cruise for a while until it sees something
                 self.backUp()
                 # if I had to stop, pick a better path
-            ##if us_dist(15) < 7:
-                # when it stop it will check to see if something is up in its face
-                # then it will back up and check for a new path
-                #self.encB(5)
                 turn_target = self.kenny()
                 if turn_target > 0:
                     self.turnR(turn_target)
                     #neg degrees means left
                 else:
                     self.turnL(abs(turn_target))
-                    #this takes care of neg with absolute values
+                    # this takes care of neg with absolute values
 
     def cruise(self):
         servo(self.MIDPOINT)
@@ -184,14 +179,14 @@ class GoPiggy(pigo.Pigo):
             if self.scan[x]:
                 # if there is an actual value in x, consider it. otherwise skip over it
                 if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
-        # add 30 if necessary, safety buffer
+                        # add 30 if necessary, safety buffer
                     count += 1
                 else:
                     count  = 0
             # reset the count, path won't work
                 if count == (16/INC) -1:
-                # Success! Found enough positive readings in a row to count
-                    print ("Found an option from " + str(x - 16) + "to " + str(x))
+                    # Success! Found enough positive readings in a row to count
+                    print("Found an option from " + str(x - 16) + "to " + str(x))
                         # set counter again for the next time
                     count = 0
                     option.append(x-8)
@@ -205,14 +200,14 @@ class GoPiggy(pigo.Pigo):
         print("\nTHINKING. Ideal turn: " + str(ideal) + " degrees\n")
         for x in option:
             if x != 0:
-            # skip filler option
-            # the change to the midpoint needed to aim at this path
+                # skip filler option
+                # the change to the midpoint needed to aim at this path
                 turn = self.MIDPOINT - x
             # state our logic so debugging is easier
                 print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
             # if this option is closer to our ideal than our current best option...
                 if abs(ideal - bestoption) > abs(ideal - turn):
-                # store this turn as the best option
+                    # store this turn as the best option
                     bestoption = turn
         if bestoption > 0:
             input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
@@ -221,26 +216,8 @@ class GoPiggy(pigo.Pigo):
         return bestoption
 
 
-#################################################################################################################
-####THIS CODE IS NO LONGER USED FOR NAV BUT ONLY FOR DANCE I THINK
-    ## every time robot turns it will print how much it will turn to get back on track
-    def encR(self, enc):
-        self.turn_track -= enc
-        ## subtract same amount that is encoded
-        super(pigo.Pigo, self).encR(enc)
-        ## error here, object super no attribute encR
-    def encL(self, enc):
-        self.turn_track += enc
-        if(self.turn_track > 0):
-            # turn track is pos, (facing left) needs to turn right to face exit
-            print("The exit is to my right by" + str(self.turn_track) + "units")
-            # exit is to right by however much turn track is
-        else:
-            print("The exit is to my left by" + str(abs(self.turn_track)) + "units")
-        super(pigo.Pigo, self).encL(enc)
 
-
-###################################################################################################################
+    #######################################################################################
     # this code helps me to calibrate motor speed, told me if it was driving straight
 
     def calibrate(self):
