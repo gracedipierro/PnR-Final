@@ -155,6 +155,14 @@ class GoPiggy(pigo.Pigo):
             time.sleep(.05)
         self.stop()
 
+    def backUp(self):
+        # will check to see if something is up in its face
+        if us_dist(15) < 10:
+            print(" Too close, backuing up for half a second")
+            bwd()
+            time.sleep(.5)
+            self.stop
+
     # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
     def kenny(self):
         # use built-in wide scan
@@ -167,6 +175,7 @@ class GoPiggy(pigo.Pigo):
         SAFETY_BUFFER = 30
         # what increment do you have your widescan set to?
         INC = 2
+
         #############################
         ##### Build the options #####
         #############################
@@ -180,28 +189,36 @@ class GoPiggy(pigo.Pigo):
             else:
                 count  = 0
             # reset the count, path won't work
-            if count == (20/INC)
+            if count == (16/INC) -1:
                 # Success! Found enough positive readings in a row to count
-            print ("Found an option from " + str(x - 20) + "to " + str(x))
+            print ("Found an option from " + str(x - 16) + "to " + str(x))
+            # set counter again for the next time
             count = 0
-            option.append(x-10)
-            #we are done finding spots, list options
+            option.append(x-8)
+            # we are done finding spots, list options
+
         #########################
         ### Pick from options ###
         #########################
         bestoption = 90
-        winner = 0
+        ideal = -self.turn_track
+        print("\nTHINKING. Ideal turn: " + str(ideal) + " degrees\n")
         for x in option:
+            if x != 0:
             # skip filler option
-            if not x.+__index__() == 0:
-                print("Choice  # " + str(x.__index__())+ "is at " + str(x) + " degrees.")
-                ideal = self.turn_track + self.MIDPOINT
-                print("My ideal choice would  be " + str(ideal))
-                if bestoption > abs(self.turn_track -(x - self.MIDPOINT)):
-                    bestoption = abs(self.turn_track -(x - self.MIDPOINT))
-                    winner = x
-        return winner
-
+            # the change to the midpoint needed to aim at this path
+            turn = self.MIDPOINT - x
+            # state our logic so debugging is easier
+            print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
+            # if this option is closer to our ideal than our current best option...
+            if abs(ideal - bestoption) > abs(ideal - turn):
+                # store this turn as the best option
+                bestoption = turn
+        if bestoption > 0:
+            input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
+        else:
+            input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
+        return bestoption
 
 
 #################################################################################################################
