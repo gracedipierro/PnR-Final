@@ -185,17 +185,17 @@ class GoPiggy(pigo.Pigo):
                 # if there is an actual value in x, consider it. otherwise skip over it
                 if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
         # add 30 if necessary, safety buffer
-                count += 1
-            else:
-                count  = 0
+                    count += 1
+                else:
+                    count  = 0
             # reset the count, path won't work
-            if count == (16/INC) -1:
+                if count == (16/INC) -1:
                 # Success! Found enough positive readings in a row to count
-            print ("Found an option from " + str(x - 16) + "to " + str(x))
-            # set counter again for the next time
-            count = 0
-            option.append(x-8)
-            # we are done finding spots, list options
+                    print ("Found an option from " + str(x - 16) + "to " + str(x))
+                        # set counter again for the next time
+                    count = 0
+                    option.append(x-8)
+                    # we are done finding spots, list options
 
         #########################
         ### Pick from options ###
