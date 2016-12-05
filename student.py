@@ -23,6 +23,8 @@ class GoPiggy(pigo.Pigo):
     # this tells how long it takes for robot to turn 1 degree
     TURN_MODIFIER = .41
     # this number is multiplied by the speed and it modifies it
+    # scan = [None] * 180
+
 
     # CONSTRUCTOR
     def __init__(self):
@@ -32,11 +34,11 @@ class GoPiggy(pigo.Pigo):
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
-            self.handler()
+            self.menu()
         # asking if I want to calibrate head
 
-    ##### HANDLE IT
-    def handler(self):
+    ## call methods based on response
+    def menu(self):
         ## This is a DICTIONARY, it's a list with custom index values
         # You may change the menu if you'd like
         menu = {"1": ("Navigate forward", self.nav),
@@ -50,7 +52,6 @@ class GoPiggy(pigo.Pigo):
         # loop and print the menu...
         for key in sorted(menu.keys()):
             print(key + ":" + menu[key][0])
-
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
 
@@ -121,33 +122,28 @@ class GoPiggy(pigo.Pigo):
     # AUTONOMOUS DRIVING
     # central logic loop of my navigation
     def nav(self):
-        print("Piggy nav")
-        # if loop fails, it will check for other paths
+        print("-----------! NAVIGATION ACTIVATED !------------\n")
+        print("[ Press CTRL + C to stop me, then run stop.py ]\n")
+        print("-----------! NAVIGATION ACTIVATED !------------\n")
         # main app loop
         while True:
-            #TODO: replace choosePath with a method that is smarter
             if self.isClear():
             # go forward 10 if it is clear
                 self.cruise()
                 # robot will cruise for a while until it sees something
-            if us_dist(15) < 7:
+                self.backUp()
+                # if I had to stop, pick a better path
+            ##if us_dist(15) < 7:
                 # when it stop it will check to see if something is up in its face
                 # then it will back up and check for a new path
-                self.encB(5)
-            # trying to get robot to choose a new path if it cannot go forward
-            answer = self.choosePath()
-            # turn_target = self.kenny()
-            # if the path is clear to the left, it will turn 45 degrees
-            if answer == "left":
-                #TODO: Replace 45 with a variable representing a smarter option
-                self.turnL(45)
-                #  self.turnL(turn_target)
-            # if the path is clear to the right and not left, it will go right
-            elif answer == "right":
-                # TODO: Replace 45 with a variable representing a smarter option
-                self.turnR(45)
-                ## how many degrees do we actually want to turn ?
-                # self.turnR(turn_target)
+                #self.encB(5)
+                turn_target = self.kenny()
+                if turn_target > 0:
+                    self.turnR(turn_target)
+                    #neg degrees means left
+                else:
+                    self.turnL(abs(turn_target))
+                    #this takes care of neg with absolute values
 
     def cruise(self):
         servo(self.MIDPOINT)
@@ -159,8 +155,7 @@ class GoPiggy(pigo.Pigo):
             time.sleep(.05)
         self.stop()
 
-
-    # REPLACEMENT TURN METHOD , find best option to turn
+    # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
     def kenny(self):
         # use built-in wide scan
         self.wideScan()
@@ -187,7 +182,7 @@ class GoPiggy(pigo.Pigo):
             # reset the count, path won't work
             if count == (20/INC)
                 # Success! Found enough positive readings in a row to count
-            print 'Found an option from ' + str(x - 20) + "to " + str(x)
+            print ("Found an option from " + str(x - 20) + "to " + str(x))
             count = 0
             option.append(x-10)
             #we are done finding spots, list options
@@ -200,7 +195,8 @@ class GoPiggy(pigo.Pigo):
             # skip filler option
             if not x.+__index__() == 0:
                 print("Choice  # " + str(x.__index__())+ "is at " + str(x) + " degrees.")
-                print("My ideal choice would  be " + str(self.turn_track + self.MIDPOINT))
+                ideal = self.turn_track + self.MIDPOINT
+                print("My ideal choice would  be " + str(ideal))
                 if bestoption > abs(self.turn_track -(x - self.MIDPOINT)):
                     bestoption = abs(self.turn_track -(x - self.MIDPOINT))
                     winner = x
