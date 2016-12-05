@@ -140,6 +140,45 @@ class GoPiggy(pigo.Pigo):
                     self.turnL(abs(turn_target))
                     # this takes care of neg with absolute values
 
+    #########################################
+    ### QUICK CHECK - is it safe to drive forward?
+
+    #This returns true or false
+    def isClear(self) -> bool:
+        #YOU DECIDE: What range from our midpoint should we check?
+        for x in range((self.MIDPOINT - 20), (self.MIDPOINT + 20), 4):
+            #move the sensor
+            servo(x)
+            #Give a little time to turn the servo
+            time.sleep(.1)
+            #Take our first measurement
+            scan1 = us_dist(15)
+            #Give a little time for the measurement
+            time.sleep(.1)
+            #Take the same measurement
+            scan2 = us_dist(15)
+            # Give a little time for the measurement
+            time.sleep(.1)
+            #if there's a significant difference between the measurements
+            if abs(scan1 - scan2) > 2:
+                #take a third measurement
+                scan3 = us_dist(15)
+                time.sleep(.1)
+                #take another scan and average? the three together - you decide
+                scan1 = (scan1 + scan2 + scan3) / 3
+            #store the measurement in our list
+            self.scan[x] = scan1
+            #print the finding
+            print("Degree: " + str(x) + ", distance: " + str(scan1))
+            #If any one finding looks bad
+            if scan1 < self.STOP_DIST:
+                print("\n--isClear method returns FALSE--\n")
+                return False
+        print("\n--isClear method returns TRUE--\n")
+        return True
+
+
+
     def cruise(self):
         servo(self.MIDPOINT)
         time.sleep(.1)
