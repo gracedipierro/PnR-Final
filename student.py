@@ -195,6 +195,7 @@ class GoPiggy(pigo.Pigo):
         if us_dist(15) < 15:
             print(" Too close, backing up for half a second")
             bwd()
+            # sleep for .5 sec
             time.sleep(.5)
             self.stop()
 
