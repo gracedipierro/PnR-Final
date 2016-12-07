@@ -7,8 +7,6 @@ from gopigo import *
 This class INHERITS your teacher's Pigo class. That means Mr. A can continue to
 improve the parent class and it won't overwrite your work.
 '''
-## TODO from the board in class: Calibrate, Cruise, Turn Track, Turn options, other
-## TODO add some more class variables up at the top
 
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
