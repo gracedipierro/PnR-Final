@@ -124,7 +124,7 @@ class GoPiggy(pigo.Pigo):
         print("[ Press CTRL + C to stop me, then run stop.py ]\n")
         print("-----------! NAVIGATION ACTIVATED !------------\n")
         # main app loop
-        while True:
+        '''while True:
             if self.isClear():
                 self.cruise()
                 # robot will cruise for a while until it sees something
@@ -137,6 +137,7 @@ class GoPiggy(pigo.Pigo):
             else:
                 self.turnL(abs(turn_target))
                 # this takes care of neg with absolute values
+                '''
 
     #########################################
     ### QUICK CHECK - is it safe to drive forward?
