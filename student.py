@@ -127,6 +127,7 @@ class GoPiggy(pigo.Pigo):
         while True:
             if self.isClear():
                 self.cruise()
+                # repeat this to make it double check, is it really able to go forward?
             if self.isClear():
                 self.cruise()
                 # robot will cruise for a while until it sees something
@@ -191,8 +192,8 @@ class GoPiggy(pigo.Pigo):
 
     def backUp(self):
         # will check to see if something is up in its face
-        if us_dist(15) < 10:
-            print(" Too close, backuing up for half a second")
+        if us_dist(15) < 15:
+            print(" Too close, backing up for half a second")
             bwd()
             time.sleep(.5)
             self.stop
