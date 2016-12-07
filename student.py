@@ -124,7 +124,7 @@ class GoPiggy(pigo.Pigo):
         print("[ Press CTRL + C to stop me, then run stop.py ]\n")
         print("-----------! NAVIGATION ACTIVATED !------------\n")
         # main app loop
-        '''while True:
+        while True:
             if self.isClear():
                 self.cruise()
                 # robot will cruise for a while until it sees something
@@ -137,57 +137,66 @@ class GoPiggy(pigo.Pigo):
             else:
                 self.turnL(abs(turn_target))
                 # this takes care of neg with absolute values
-                '''
 
     #########################################
     ### QUICK CHECK - is it safe to drive forward?
 
     #This returns true or false
     def isClear(self) -> bool:
-        def nav(self):
-            print("Piggy nav")
-            # if loop fails, it will check for other paths
-            # main app loop
-            while True:
-                if self.isClear():
-                    # go forward 10 if it is clear
-                    self.cruise()
-                    # robot will cruise for a while until it sees something
-                if us_dist(15) < 7:
-                    # when it stop it will check to see if something is up in its face
-                    # then it will back up and check for a new path
-                    self.encB(5)
-                # trying to get robot to choose a new path if it cannot go forward
-                answer = self.choosePath()
-                # if the path is clear to the left, it will turn 45 degrees
-                if answer == "left":
-                    self.turnL(45)
-                # if the path is clear to the right and not left, it will go right
-                elif answer == "right":
-                    self.turnR(45)
-                    ## how many degrees do we actually want to turn ?
-
-        def cruise(self):
-            servo(self.MIDPOINT)
+        #YOU DECIDE: What range from our midpoint should we check?
+        for x in range((self.MIDPOINT - 20), (self.MIDPOINT + 20), 4):
+            #move the sensor
+            servo(x)
+            #Give a little time to turn the servo
             time.sleep(.1)
-            fwd()
-            while True:
-                if us_dist(15) < self.STOP_DIST:
-                    break
-                time.sleep(.05)
-            self.stop()
+            #Take our first measurement
+            scan1 = us_dist(15)
+            #Give a little time for the measurement
+            time.sleep(.1)
+            #Take the same measurement
+            scan2 = us_dist(15)
+            # Give a little time for the measurement
+            time.sleep(.1)
+            #if there's a significant difference between the measurements
+            if abs(scan1 - scan2) > 2:
+                #take a third measurement
+                scan3 = us_dist(15)
+                time.sleep(.1)
+                #take another scan and average? the three together - you decide
+                scan1 = (scan1 + scan2 + scan3) / 3
+            #store the measurement in our list
+            self.scan[x] = scan1
+            #print the finding
+            print("Degree: " + str(x) + ", distance: " + str(scan1))
+            #If any one finding looks bad
+            if scan1 < self.STOP_DIST:
+                print("\n--isClear method returns FALSE--\n")
+                return False
+        print("\n--isClear method returns TRUE--\n")
+        return True
 
-    '''def backUp(self):
+
+
+    def cruise(self):
+        servo(self.MIDPOINT)
+        time.sleep(.1)
+        fwd()
+        while True:
+            if us_dist(15)< self.STOP_DIST:
+                break
+            time.sleep(.05)
+        self.stop()
+
+    def backUp(self):
         # will check to see if something is up in its face
         if us_dist(15) < 10:
             print(" Too close, backuing up for half a second")
             bwd()
             time.sleep(.5)
             self.stop
-            '''
 
     # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
-    '''def kenny(self):
+    def kenny(self):
         # use built-in wide scan
         self.wideScan()
         # will double check, if finds that first scan is different, take a 2nd or 3rd scan & average to be extra sure
@@ -242,7 +251,6 @@ class GoPiggy(pigo.Pigo):
         else:
             input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
         return bestoption
-        '''
 
 
 
