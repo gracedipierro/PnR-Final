@@ -196,7 +196,7 @@ class GoPiggy(pigo.Pigo):
             print(" Too close, backing up for half a second")
             bwd()
             time.sleep(.5)
-            self.stop
+            self.stop()
 
     # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
     def kenny(self):
