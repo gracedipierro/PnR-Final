@@ -12,7 +12,7 @@ class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
-    STOP_DIST = 30
+    STOP_DIST = 20
     # Turn speed ? adjust speeds if needed
     RIGHT_SPEED = 150
     LEFT_SPEED = 150
@@ -125,6 +125,8 @@ class GoPiggy(pigo.Pigo):
         print("-----------! NAVIGATION ACTIVATED !------------\n")
         # main app loop
         while True:
+            if self.isClear():
+                self.cruise()
             if self.isClear():
                 self.cruise()
                 # robot will cruise for a while until it sees something
