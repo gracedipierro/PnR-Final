@@ -128,15 +128,15 @@ class GoPiggy(pigo.Pigo):
             if self.isClear():
                 self.cruise()
                 # robot will cruise for a while until it sees something
-                self.backUp()
-                # if I had to stop, pick a better path
-                turn_target = self.kenny()
-                if turn_target > 0:
-                    self.turnR(turn_target)
-                    #neg degrees means left
-                else:
-                    self.turnL(abs(turn_target))
-                    # this takes care of neg with absolute values
+            self.backUp()
+            # if I had to stop, pick a better path
+            turn_target = self.kenny()
+            if turn_target > 0:
+                self.turnR(turn_target)
+                #neg degrees means left
+            else:
+                self.turnL(abs(turn_target))
+                # this takes care of neg with absolute values
 
     #########################################
     ### QUICK CHECK - is it safe to drive forward?
