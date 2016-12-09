@@ -2,10 +2,10 @@
 The final project for my Programming and Robotics class
 
  The final project consisted of many trials and many more errors when experimenting
- with robots. The goal was to get a robot to go through a maze without any help from
- me. Programming the robot to do this proved to be difficult, but with hard work
- and perseverance, a solution was found. Below are some of the methods used.
-
+ with robots. We used the Python language to encode our robots to do certain things.
+ The goal was to get a robot to go through a maze without any help from me.
+ Programming the robot to do this proved to be difficult, but with hard work and
+ perseverance, a solution was found. Below are some of the methods used.
 
 'menu(self)' - This is a dictionary, that means it is a list with custom index values.
     In my project, I have several options in the menu. There is a navigate forward option,
@@ -36,15 +36,17 @@ The final project for my Programming and Robotics class
     something, it will back up and look for a new path with the kenny method. Then the
     loop will repeat as many times as necessary.
 
-
     #This returns true or false
-def isClear(self) -> bool:
-cruise(self):
-backUp(self):
+'isClear(self) -> bool' - This method returns true or false.
+'cruise(self)' -
+
+'backUp(self)' -
     # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
-def kenny(self):
+'kenny(self)' -
 
     # this code helps me to calibrate motor speed, told me if it was driving straight
-calibrate(self):
-error():
-quit():
+'calibrate(self)' -
+
+'error()' -
+
+'quit()' -
