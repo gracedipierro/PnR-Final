@@ -228,9 +228,9 @@ class GoPiggy(pigo.Pigo):
                 else:
                     count  = 0
             # reset the count, path won't work
-                if count == (16/INC) -1:
+                if count == (17/INC) -1:
                     # Success! Found enough positive readings in a row to count
-                    print("Found an option from " + str(x - 16) + "to " + str(x))
+                    print("Found an option from " + str(x - 17) + "to " + str(x))
                         # set counter again for the next time
                     count = 0
                     option.append(x-8)
