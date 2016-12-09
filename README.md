@@ -52,12 +52,15 @@ The final project for my Programming and Robotics class
     The robot tends to get very close to objects before it notices how close it is,
     and when this happens, it will back up, scan again, and look for new options.
 
-    # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
-'kenny(self)' -
+'kenny(self)' - This is a replacement method for choosePath. It is more accurate and
+    finds the best option available. It scans multiple times and averages the scans
+    together to choose the best option. Then it will print all the options and decide
+    what the best one is for the robot.
 
-    # this code helps me to calibrate motor speed, told me if it was driving straight
-'calibrate(self)' -
+'calibrate(self)' - This code helps to calibrate the motor speed and will tell us if
+    the robot is driving straight or not. You can reduce left, right, or encode the
+    speed to find a more accurate speed for the motors.
 
-'error()' -
+'error()' - This is a method that prints a message when there is an error in the code.
 
-'quit()' -
+'quit()' - This method quits the app when it senses an error.
