@@ -128,8 +128,6 @@ class GoPiggy(pigo.Pigo):
             if self.isClear():
                 self.cruise()
                 # repeat this to make it double check, is it really able to go forward?
-            if self.isClear():
-                self.cruise()
                 # robot will cruise for a while until it sees something
             self.backUp()
             # if I had to stop, pick a better path
@@ -186,7 +184,12 @@ class GoPiggy(pigo.Pigo):
         fwd()
         while True:
             if us_dist(15)< self.STOP_DIST:
-                break
+                self.stop()
+                if us_dist(15) < self.STOP_DIST:
+                    break
+                else:
+                    fwd()
+                    continue
             time.sleep(.05)
         self.stop()
 
