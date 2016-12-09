@@ -36,11 +36,22 @@ The final project for my Programming and Robotics class
     something, it will back up and look for a new path with the kenny method. Then the
     loop will repeat as many times as necessary.
 
-    #This returns true or false
-'isClear(self) -> bool' - This method returns true or false.
-'cruise(self)' -
+'isClear(self) -> bool' - This method returns true or false because of the bool.
+    It is what tells the robot to check its surroundings. First the sensor moves and
+    takes the first measurement. Then it goes back and takes the same measurement and
+    if there is a significant difference between them, then it will take a third.
+    Then it will average all the scans and store them in a list. It will print
+    the findings and if it any of them look bad, it will restart the method and look
+    for new options.
 
-'backUp(self)' -
+'cruise(self' - This method is what tells the robot to go forward for as long as it
+    can without stopping. Once it sees something, it will stop and look for a new
+    option and/or back up if it is too close to something.
+
+'backUp(self)' - This method is helpful for when the robot gets into a sticky situation.
+    The robot tends to get very close to objects before it notices how close it is,
+    and when this happens, it will back up, scan again, and look for new options.
+
     # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
 'kenny(self)' -
 
