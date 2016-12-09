@@ -64,3 +64,14 @@ The final project for my Programming and Robotics class
 'error()' - This is a method that prints a message when there is an error in the code.
 
 'quit()' - This method quits the app when it senses an error.
+
+
+
+If I had another semester, I would like to try to find a way to get my robot to find
+a new path without me having to press enter to resume the trial. I like the kenny
+method, but I do not like how I have to press enter and I do not like how little it
+turns at times because of this method. I would like to play around with it some more
+and get it to go through the maze without my interference at all and without stopping
+so long to check for paths. When it checks for paths, it will take a long time for it
+to complete a full scan, and I want to play around with this some more so that it
+goes quicker but is also efficient.
