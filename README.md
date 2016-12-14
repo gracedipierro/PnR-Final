@@ -7,7 +7,7 @@ The final project for my Programming and Robotics class
  Programming the robot to do this proved to be difficult, but with hard work and
  perseverance, a solution was found. Below are some of the methods used.
 
-'menu(self)' - This is a dictionary, that means it is a list with custom index values.
+'handler (self)' - This is a dictionary, that means it is a list with custom index values.
     In my project, I have several options in the menu. There is a navigate forward option,
     and this is my self.nav method, which basically just lets the robot start going. There
     is also a dance option, this tells the robot to start the dance method. Calibrate helps
@@ -34,7 +34,9 @@ The final project for my Programming and Robotics class
     robot to autonomously drive. First it will check to see if the path in front of it
     is clear, then it will cruise forward until it sees something. Then if it does see
     something, it will back up and look for a new path with the kenny method. Then the
-    loop will repeat as many times as necessary.
+    loop will repeat as many times as necessary.  Included in this is the cdoe for
+    the backup, if it sees something that is too close, it will tell itself to back up
+    and check for new paths.
 
 'isClear(self) -> bool' - This method returns true or false because of the bool.
     It is what tells the robot to check its surroundings. First the sensor moves and
@@ -48,15 +50,6 @@ The final project for my Programming and Robotics class
     can without stopping. Once it sees something, it will stop and look for a new
     option and/or back up if it is too close to something.
 
-'backUp(self)' - This method is helpful for when the robot gets into a sticky situation.
-    The robot tends to get very close to objects before it notices how close it is,
-    and when this happens, it will back up, scan again, and look for new options.
-
-'kenny(self)' - This is a replacement method for choosePath. It is more accurate and
-    finds the best option available. It scans multiple times and averages the scans
-    together to choose the best option. Then it will print all the options and decide
-    what the best one is for the robot.
-
 'calibrate(self)' - This code helps to calibrate the motor speed and will tell us if
     the robot is driving straight or not. You can reduce left, right, or encode the
     speed to find a more accurate speed for the motors.
@@ -67,11 +60,3 @@ The final project for my Programming and Robotics class
 
 
 
-If I had another semester, I would like to try to find a way to get my robot to find
-a new path without me having to press enter to resume the trial. I like the kenny
-method, but I do not like how I have to press enter and I do not like how little it
-turns at times because of this method. I would like to play around with it some more
-and get it to go through the maze without my interference at all and without stopping
-so long to check for paths. When it checks for paths, it will take a long time for it
-to complete a full scan, and I want to play around with this some more so that it
-goes quicker but is also efficient.

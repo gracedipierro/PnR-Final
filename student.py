@@ -13,7 +13,7 @@ class GoPiggy(pigo.Pigo):
     # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
     STOP_DIST = 30
-    # Turn speed ? adjust speeds if needed
+        # speed of motors, can be adjusted if needed
     RIGHT_SPEED = 150
     LEFT_SPEED = 150
     turn_track = 0.0
@@ -31,7 +31,6 @@ class GoPiggy(pigo.Pigo):
         while True:
             self.stop()
             self.handler()
-        # asking if I want to calibrate head
 
     ##### HANDLE IT
     def handler(self):
@@ -92,6 +91,7 @@ class GoPiggy(pigo.Pigo):
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         # sets speed back to default at top of code
+        # uses this speed for the turn and then reverts back
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
     def turnL(self, deg):
@@ -104,7 +104,6 @@ class GoPiggy(pigo.Pigo):
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
-        # set speed back to normal bc we only adjust it for turns
 
     # set speed is for the whole thing but it is called again to change the speed for the turn
     def setSpeed(self, left, right):
@@ -123,28 +122,24 @@ class GoPiggy(pigo.Pigo):
         # if loop fails, it will check for other paths
         # main app loop
         while True:
-            #TODO: replace choosePath with a method that is smarter
             if self.isClear():
-            # go forward 10 if it is clear
                 self.cruise()
                 # robot will cruise for a while until it sees something
             if us_dist(15) < 7:
-                # when it stop it will check to see if something is up in its face
+                # when it stops it will check to see if something is up in its face
                 # then it will back up and check for a new path
                 self.encB(5)
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will turn 45 degrees
-            if answer == "left":
-                #TODO: Replace 45 with a variable representing a smarter option
                 self.turnL(45)
             # if the path is clear to the right and not left, it will go right
             elif answer == "right":
-                # TODO: Replace 45 with a variable representing a smarter option
                 self.turnR(45)
                 ## how many degrees do we actually want to turn ?
 
     def cruise(self):
+        # cruise method, tells it to go forward until something is in front of it
         servo(self.MIDPOINT)
         time.sleep(.1)
         fwd()
@@ -155,12 +150,14 @@ class GoPiggy(pigo.Pigo):
         self.stop()
 
 ###################################################################################################################
-    # this code helps me to calibrate motor speed, told me if it was driving straight
+    # this code helps me to calibrate motor speed,
+    # tells me if it was driving straight
     def calibrate(self):
         print("Calibrating...")
         servo(self.MIDPOINT)
         response = input("Am I looking straight ahead? (y/n): ")
         if response == 'n':
+            # will ask what we want to do, turn r, l, or done?
             while True:
                 response = input("Turn right, left, or am I done? (r/l/d): ")
                 if response == "r":
@@ -193,7 +190,8 @@ class GoPiggy(pigo.Pigo):
                     break
 
 ##################################################################################################################
-############### STATIC FUNCTIONS
+###############
+# STATIC FUNCTIONS
 
 def error():
     print('Error in input')
