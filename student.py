@@ -239,7 +239,7 @@ class GoPiggy(pigo.Pigo):
         #########################
         ### Pick from options ###
         #########################
-        bestoption = 2000
+        bestoption = 200
         ideal_angle = self.MIDPOINT + self.turn_track
         print("\nTHINKING. Ideal turn: " + str(ideal_angle) + " degrees\n")
         for x in option:
