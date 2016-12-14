@@ -132,6 +132,7 @@ class GoPiggy(pigo.Pigo):
             # trying to get robot to choose a new path if it cannot go forward
             answer = self.choosePath()
             # if the path is clear to the left, it will turn 45 degrees
+            if answer == "left":
                 self.turnL(45)
             # if the path is clear to the right and not left, it will go right
             elif answer == "right":
