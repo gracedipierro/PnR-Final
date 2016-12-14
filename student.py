@@ -12,7 +12,7 @@ class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # capital stuff doesn't change while the app is running, turn track constantly changes
     MIDPOINT = 89
-    STOP_DIST = 20
+    STOP_DIST = 30
     # Turn speed ? adjust speeds if needed
     RIGHT_SPEED = 150
     LEFT_SPEED = 150
@@ -21,8 +21,6 @@ class GoPiggy(pigo.Pigo):
     # this tells how long it takes for robot to turn 1 degree
     TURN_MODIFIER = .41
     # this number is multiplied by the speed and it modifies it
-    # scan = [None] * 180
-
 
     # CONSTRUCTOR
     def __init__(self):
@@ -32,11 +30,11 @@ class GoPiggy(pigo.Pigo):
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
-            self.menu()
+            self.handler()
         # asking if I want to calibrate head
 
-    ## call methods based on response
-    def menu(self):
+    ##### HANDLE IT
+    def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
         # You may change the menu if you'd like
         menu = {"1": ("Navigate forward", self.nav),
@@ -50,6 +48,7 @@ class GoPiggy(pigo.Pigo):
         # loop and print the menu...
         for key in sorted(menu.keys()):
             print(key + ":" + menu[key][0])
+
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
 
@@ -120,63 +119,30 @@ class GoPiggy(pigo.Pigo):
     # AUTONOMOUS DRIVING
     # central logic loop of my navigation
     def nav(self):
-        print("-----------! NAVIGATION ACTIVATED !------------\n")
-        print("[ Press CTRL + C to stop me, then run stop.py ]\n")
-        print("-----------! NAVIGATION ACTIVATED !------------\n")
+        print("Piggy nav")
+        # if loop fails, it will check for other paths
         # main app loop
         while True:
+            #TODO: replace choosePath with a method that is smarter
             if self.isClear():
+            # go forward 10 if it is clear
                 self.cruise()
-                # repeat this to make it double check, is it really able to go forward?
                 # robot will cruise for a while until it sees something
-            self.backUp()
-            # if I had to stop, pick a better path
-            turn_target = self.kenny()
-            if turn_target > 0:
-                self.turnR(turn_target)
-                #neg degrees means left
-            else:
-                self.turnL(abs(turn_target))
-                # this takes care of neg with absolute values
-
-    #########################################
-    ### QUICK CHECK - is it safe to drive forward?
-
-    #This returns true or false
-    def isClear(self) -> bool:
-        #YOU DECIDE: What range from our midpoint should we check?
-        for x in range((self.MIDPOINT - 20), (self.MIDPOINT + 20), 4):
-            #move the sensor
-            servo(x)
-            #Give a little time to turn the servo
-            time.sleep(.1)
-            #Take our first measurement
-            scan1 = us_dist(15)
-            #Give a little time for the measurement
-            time.sleep(.1)
-            #Take the same measurement
-            scan2 = us_dist(15)
-            # Give a little time for the measurement
-            time.sleep(.1)
-            #if there's a significant difference between the measurements
-            if abs(scan1 - scan2) > 2:
-                #take a third measurement
-                scan3 = us_dist(15)
-                time.sleep(.1)
-                #take another scan and average? the three together - you decide
-                scan1 = (scan1 + scan2 + scan3) / 3
-            #store the measurement in our list
-            self.scan[x] = scan1
-            #print the finding
-            print("Degree: " + str(x) + ", distance: " + str(scan1))
-            #If any one finding looks bad
-            if scan1 < self.STOP_DIST:
-                print("\n--isClear method returns FALSE--\n")
-                return False
-        print("\n--isClear method returns TRUE--\n")
-        return True
-
-
+            if us_dist(15) < 7:
+                # when it stop it will check to see if something is up in its face
+                # then it will back up and check for a new path
+                self.encB(5)
+            # trying to get robot to choose a new path if it cannot go forward
+            answer = self.choosePath()
+            # if the path is clear to the left, it will turn 45 degrees
+            if answer == "left":
+                #TODO: Replace 45 with a variable representing a smarter option
+                self.turnL(45)
+            # if the path is clear to the right and not left, it will go right
+            elif answer == "right":
+                # TODO: Replace 45 with a variable representing a smarter option
+                self.turnR(45)
+                ## how many degrees do we actually want to turn ?
 
     def cruise(self):
         servo(self.MIDPOINT)
@@ -184,90 +150,12 @@ class GoPiggy(pigo.Pigo):
         fwd()
         while True:
             if us_dist(15)< self.STOP_DIST:
-                self.stop()
-                if us_dist(15) < self.STOP_DIST:
-                    break
-                else:
-                    fwd()
-                    continue
+                break
             time.sleep(.05)
         self.stop()
 
-    def backUp(self):
-        # will check to see if something is up in its face
-        if us_dist(15) < 15:
-            print(" Too close, backing up")
-            bwd()
-            # sleep for .5 sec
-            time.sleep(.2)
-            self.stop()
-
-    # REPLACEMENT TURN METHOD instead of choosePath, find best option to turn
-    def kenny(self):
-        # use built-in wide scan
-        self.wideScan()
-        # will double check, if finds that first scan is different, take a 2nd or 3rd scan & average to be extra sure
-        # count will keep track of contigeous positive readings
-        count = 0
-        # list of all open paths we detect
-        option = [0]
-        SAFETY_BUFFER = 30
-        # what increment do you have your widescan set to?
-        INC = 2
-
-        #############################
-        ##### Build the options #####
-        #############################
-        # brackets makes it a list, first item is 0
-        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60):
-            if self.scan[x]:
-                # if there is an actual value in x, consider it. otherwise skip over it
-                if self.scan[x] > self.STOP_DIST + SAFETY_BUFFER:
-                        # add 30 if necessary, safety buffer
-                    count += 1
-                else:
-                    count  = 0
-            # reset the count, path won't work
-                if count == (17/INC) -1:
-                    # Success! Found enough positive readings in a row to count
-                    print("Found an option from " + str(x - 17) + "to " + str(x))
-                        # set counter again for the next time
-                    count = 0
-                    option.append(x-8)
-                    # we are done finding spots, list options
-
-        #########################
-        ### Pick from options ###
-        #########################
-        bestoption = 200
-        ideal_angle = self.MIDPOINT + self.turn_track
-        print("\nTHINKING. Ideal turn: " + str(ideal_angle) + " degrees\n")
-        for x in option:
-            if x != 0:
-                # skip filler option
-                # the change to the midpoint needed to aim at this path
-            # state our logic so debugging is easier
-                print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
-            # if this option is closer to our ideal than our current best option...
-                if abs(ideal_angle - bestoption) > abs(ideal_angle - x):
-                    # store this turn as the best option
-                    bestoption = x
-            bestoption = self.MIDPOINT - bestoption
-        if bestoption > 0:
-            input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
-        else:
-            input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
-        if bestoption != 2000 and abs(bestoption) >5 and abs(bestoption) < 190:
-            return bestoption
-        else:
-            return -self.turn_track
-
-
-
-
-    #######################################################################################
+###################################################################################################################
     # this code helps me to calibrate motor speed, told me if it was driving straight
-
     def calibrate(self):
         print("Calibrating...")
         servo(self.MIDPOINT)
