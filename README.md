@@ -1,5 +1,5 @@
 # PnR-Final
-The final project for my Programming and Robotics class
+The final project for my Programming and Robotics class, December 2016
 
  The final project consisted of many trials and many more errors when experimenting
  with robots. We used the Python language to encode our robots to do certain things.
@@ -59,4 +59,13 @@ The final project for my Programming and Robotics class
 'quit()' - This method quits the app when it senses an error.
 
 
-
+If I had another semester, I would want to develop a better nav method. Mine works,
+but there is room for improvement. I would have liked to work on the kenny method some
+more because it was a good idea, but it was not working for me, so I reverted back
+to my old code. The kenny method prohibited the robot from turning left even when
+that was the best option. To fix this, we tried to change the best option, but that
+did not help much and created more problems. Finally, I just decided to go back to
+my old code which worked better than the newer code. If I had more time, I would
+program my robot to scan while it is moving because mine only scans when it is stopped.
+I would also play around with the turning methods because they do not always pick
+the best option possible, and if I could fix this my robot would have an easier time.
