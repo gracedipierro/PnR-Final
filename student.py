@@ -196,7 +196,7 @@ class GoPiggy(pigo.Pigo):
     def backUp(self):
         # will check to see if something is up in its face
         if us_dist(15) < 15:
-            print(" Too close, backing up for half a second")
+            print(" Too close, backing up")
             bwd()
             # sleep for .5 sec
             time.sleep(.2)
@@ -239,25 +239,29 @@ class GoPiggy(pigo.Pigo):
         #########################
         ### Pick from options ###
         #########################
-        bestoption = 90
-        ideal = -self.turn_track
-        print("\nTHINKING. Ideal turn: " + str(ideal) + " degrees\n")
+        bestoption = 2000
+        ideal_angle = self.MIDPOINT + self.turn_track
+        print("\nTHINKING. Ideal turn: " + str(ideal_angle) + " degrees\n")
         for x in option:
             if x != 0:
                 # skip filler option
                 # the change to the midpoint needed to aim at this path
-                turn = self.MIDPOINT - x
             # state our logic so debugging is easier
                 print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
             # if this option is closer to our ideal than our current best option...
-                if abs(ideal - bestoption) > abs(ideal - turn):
+                if abs(ideal_angle - bestoption) > abs(ideal_angle - x):
                     # store this turn as the best option
-                    bestoption = turn
+                    bestoption = x
+            bestoption = self.MIDPOINT - bestoption
         if bestoption > 0:
             input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
         else:
             input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
-        return bestoption
+        if bestoption != 2000 and abs(bestoption) >5 and abs(bestoption) < 190:
+            return bestoption
+        else:
+            return -self.turn_track
+
 
 
 
